@@ -1,0 +1,22 @@
+{
+  "name": "react-course",
+  "version": "1.0.0",
+  "description": "React Course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagar1388/react-course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagar1388/react-course/issues"
+  },
+  "homepage": "https://github.com/sagar1388/react-course#readme",
+  "devDependencies": {
+    "parcel": "^2.10.0"
+  }
+}
