@@ -3009,58 +3009,86 @@ var _clientDefault = parcelHelpers.interopDefault(_client);
 // );
 // Creating above code in JSX
 //const jsxHeading = <h1 id="heading">Hello World from JSX!!</h1>
-const jsxHeading = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-    children: [
-        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-            id: "heading",
-            children: "Hello World from JSX!!"
-        }, void 0, false, {
-            fileName: "app.js",
-            lineNumber: 90,
-            columnNumber: 3
-        }, undefined),
-        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-            id: "heading2",
-            children: "Hello World from JSX 2!!"
-        }, void 0, false, {
-            fileName: "app.js",
-            lineNumber: 91,
-            columnNumber: 3
-        }, undefined)
-    ]
-}, void 0, true, {
-    fileName: "app.js",
-    lineNumber: 89,
-    columnNumber: 5
-}, undefined);
+// const jsxHeading = (
+//   <div>
+// <h1 id="heading">Hello World from JSX!!</h1>
+// <h2 id="heading2">Hello World from JSX 2!!</h2>
+// </div>
+// );
 // const Heading = () => {
 //   return <h1>This is a functional component.</h1>
 // }
 // const Heading = () => <h1>This is a functional component.</h1>;
-const Heading = ()=>{
+// const Heading = () => {
+//   return (<div>
+//     <h1>This is a functional component.</h1>
+//     </div>
+//   )
+// };
+// const Heading = () => {
+//   return (
+//   <div>
+//     <h1>big Heading</h1>
+//     <h2>small Heading</h2>
+//     </div>
+//   )
+// };
+// Above Heading functional component is giving lot of div's... so to resolve that we use React.Fragment tag or just empty tag
+// const Heading = () => {
+//   return (
+//   <React.Fragment>
+//     <h1>big Heading</h1>
+//     <h2>small Heading</h2>
+//   </React.Fragment>
+//   )
+// };
+// const Heading = () => {
+//   return (
+//   <>
+//     <h1>big Heading</h1>
+//     <h2>small Heading</h2>
+//   </>
+//   )
+// };
+// const jsxHeading = (
+//   <div>
+//     <span>This is a span</span>
+//     <p>This is a para</p>
+//     <Heading />
+//   </div>
+// );
+// // we can also call <Heading /> like {Heading()}
+// const Div = () => {
+//   return (
+//     <div>
+//       <span>This is a span.</span>
+//       {/* {100 + 200}
+//       {console.log("Working")} */}
+//       <Heading />
+//     </div>
+//   )
+// }
+const AppLayout = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-            children: "This is a functional component."
-        }, void 0, false, {
-            fileName: "app.js",
-            lineNumber: 103,
-            columnNumber: 7
-        }, undefined)
+        className: "app",
+        children: "App"
     }, void 0, false, {
         fileName: "app.js",
-        lineNumber: 102,
-        columnNumber: 13
+        lineNumber: 160,
+        columnNumber: 12
     }, undefined);
 };
-_c = Heading;
+_c = AppLayout;
 const root = (0, _clientDefault.default).createRoot(document.getElementById("container"));
-root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Heading, {}, void 0, false, {
+//root.render(<Heading />);
+//root.render(<Div />);
+root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
     fileName: "app.js",
-    lineNumber: 110,
+    lineNumber: 168,
     columnNumber: 15
 }, undefined));
 var _c;
-$RefreshReg$(_c, "Heading");
+$RefreshReg$(_c, "AppLayout");
 
   $parcel$ReactRefreshHelpers$6024.postlude(module);
 } finally {
