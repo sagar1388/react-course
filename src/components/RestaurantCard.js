@@ -4,10 +4,10 @@ import { RESTAURANT_IMAGE_URL } from "../utils/constants";
 
 //const RestaurantCard = ({name, rating, cuisine}) => {
 const RestaurantCard = (props) => {
-  //console.log(props);
+  console.log(props);
   //const {name, rating, cuisine} = props;
   const {name, avgRating, cuisines, cloudinaryImageId} = props?.resData?.info;
-  return (
+  return(
     <div className="border w-60 p-1 m-1">
         <img className="h-2/3 w-full"
         alt="res-logo"
@@ -30,6 +30,17 @@ const RestaurantCard = (props) => {
         {/* <h2 className="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{cuisines.join(", ")}</h2> */}
     </div>
   )
-}
+};
+
+export const withOfferLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <>
+      <label className="absolute">Discount</label>
+      <RestaurantCard {...props}/>
+      </>
+    );
+  };
+};
 
 export default RestaurantCard

@@ -1,11 +1,15 @@
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUI from "./ShimmerUI";
 import { Restaurantlist } from "./data";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ALL_RESTAURANT_API_URL } from "../utils/constants";
+import { Link } from "react-router-dom";
+import useStatus from "../hooks/useStatus";
+import { withOfferLabel } from "./RestaurantCard";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
-  // let resList = [
+   //let initialResList = [
   //   {
   //   "info": {
   //     "id": "125878",
@@ -773,31 +777,9 @@ const Body = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const topRatedRes = () => {
-    const filteredRes = resList.filter(
-      (restaurantObj) => restaurantObj?.info?.avgRating >= 4.2
-    );
-    setResList(filteredRes);
-  }
+  const {loggedInUser, setUserInfo} = useContext(UserContext);
 
-  const searchResHandler = () => {
-    // console.log("Search Button Clicked...")
-
-    const searchedRes = resList.filter(
-      (restaurantObj) => {
-       const resName = restaurantObj?.info?.name.toLowerCase();
-
-       return resName.includes(searchQuery.toLowerCase());
-      }
-    );
-
-    //setResList(searchedRes);
-    setFilteredResList(searchedRes);
-  };
-
-  // useEffect(() => {
-  //   console.log("useEffect called.");
-  // }, []);
+  const ModifiedRestaurantCard = withOfferLabel(RestaurantCard);
 
   useEffect(() => {
     getAllRestaurants();
@@ -808,18 +790,67 @@ const Body = () => {
 
     const jsonData = await res.json();
 
-    //console.log(jsonData);
+    // console.log(jsonData);
 
-    //console.log(jsonData?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    // console.log(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
     const apiResList =
-      jsonData?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
-
+      
     setResList(apiResList);
 
+    console.log(resList);
+
     setFilteredResList(apiResList);
+
+    //console.log(filteredResList);
   };
+
+  const searchResHandler = () => {
+    // console.log("Search Button Clicked...")
+
+    const searchedRes = resList.filter((restaurantObj) => {
+      const resName = restaurantObj?.info?.name.toLowerCase();
+
+      return resName.includes(searchQuery.toLowerCase());
+    });
+
+    //setResList(searchedRes);
+    setFilteredResList(searchedRes);
+  };
+
+  const topRatedRes = () => {
+    const filteredRes = resList.filter(
+      (restaurantObj) => restaurantObj?.info?.avgRating >= 4.2
+    );
+    setResList(filteredRes);
+  };
+
+    // implementing custom hook useStatus to show on UI whether we connected to internet or not.
+    const status = useStatus();
+    console.log(status);
+  
+    if (status === false) return <div>Check your internet connection...</div>;
+
+  // useEffect(() => {
+  //   console.log("useEffect called.");
+  // }, []);
+
+  // Types of Dependency Array in useEffect Hook
+  // useEffect(() => {
+  //   console.log("UseEffect is called...");
+  // });
+
+  // useEffect(() => {
+  //   console.log("UseEffect is called1...");
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("UseEffect is called2...");
+  // }, [searchQuery]);
+
+ 
 
   // if(resList.length === 0)
   // {
@@ -862,6 +893,15 @@ const Body = () => {
         >
           Top-Rated Restaurant
         </button>
+
+        {/* To Build a feature such that whatever i type in text box, it should get updated at everyplace of loggedInUser */}
+        <input
+          className="p-2 m-2 border"
+          placeholder="Please Enter UserName..."
+          value={loggedInUser}
+          onChange={(e) => setUserInfo(e.target.value)}
+        />
+
       </div>
       <div className="flex flex-wrap p-2 m-2">
         {/* <RestaurantCard name="Haldirams" rating="4.1" cuisine="North Indian"/>
@@ -883,8 +923,20 @@ const Body = () => {
         {/* {resList.map((Restaurant) => (
           <RestaurantCard key={Restaurant?.info?.id} resData={Restaurant} />
         ))} */}
-        {filteredResList.map((Restaurant) => (
+        {/* {filteredResList.map((Restaurant) => (
           <RestaurantCard key={Restaurant?.info?.id} resData={Restaurant} />
+        ))} */}
+        {filteredResList.map((restaurant) => (
+          <Link to={"/restaurant/" + restaurant?.info?.id}>
+            {/* <RestaurantCard key={Restaurant?.info?.id} resData={Restaurant} /> */}
+            {restaurant?.info?.aggregatedDiscountInfoV3 ? (
+              <ModifiedRestaurantCard resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} /> 
+            )}
+
+
+          </Link>
         ))}
       </div>
     </div>
